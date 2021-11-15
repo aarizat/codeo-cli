@@ -1,6 +1,10 @@
 import os
 import sys
+import time
 
+from bs4 import BeautifulSoup
+import requests
+from rich.console import Console
 from rich import print as rprint
 from rich.table import Table
 
@@ -30,3 +34,33 @@ def create_table_header() -> Table:
     table.add_column("Time", justify="center")
     table.add_column("Memory", justify="center")
     return table
+
+
+def show_results(url):
+    """Scrape results from codeo.app website and append them to row table.
+    """
+    console = Console()
+    table = create_table_header()
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    tbody = soup.find("tbody")
+
+    with console.status("[bold green] Working on test cases..."):
+        time.sleep(1.5)
+        for tr in tbody.find_all("tr"):
+            case = tr.th.a
+            result, time_, memory = tr.find_all("td")
+            table.add_row(
+                case.text.strip(),
+                result.div.text.strip(),
+                time_.text.strip(),
+                memory.text.strip()
+            )
+    problem = soup.find("h2").a.text
+    author, date = soup.find("ul", class_="mb-4").find_all("li")
+    console.print("Problem:", f"[bold red]{problem}[bold red]")
+    console.print("* [bold]Author:[bold]", f"[red]{author.text[7:]}[red]")
+    console.print("* [bold]Date:[bold]", f"{date.text[7:]}")
+    console.print(table)
+    score = soup.find("span", class_="font-weight-bold").text
+    console.print("Total Score:", f"[bold]{score}[bold]")
