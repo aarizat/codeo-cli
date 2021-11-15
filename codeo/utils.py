@@ -2,6 +2,7 @@ import os
 import sys
 
 from rich import print as rprint
+from rich.table import Table
 
 
 def get_enviroment_vars():
@@ -17,3 +18,15 @@ def get_enviroment_vars():
         )
         sys.exit()
     return USERNAME, PASSWORD
+
+
+def create_table_header() -> Table:
+    """Table header to display in stdout and show results scraped from
+    codeo.app
+    """
+    table = Table(show_header=True, header_style="bold")
+    table.add_column("Case", justify="center", style="red")
+    table.add_column("Result", justify="left")
+    table.add_column("Time", justify="center")
+    table.add_column("Memory", justify="center")
+    return table
