@@ -8,6 +8,8 @@ authors = ["Andres Ariza <aarizatr@gmail.com>"]
 python = "^3.8"
 MechanicalSoup = "1.1.0"
 rich = "10.12.0"
+requests = "2.26.0"
+beautifulsoup4 = "4.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
