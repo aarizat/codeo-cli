@@ -5,7 +5,6 @@ import sys
 from mechanicalsoup import LinkNotFoundError
 from rich import print as rprint
 
-
 AVAILABLE_LANGUAGES = {
     ".js": "JavaScript",
     ".py": "Python 3",
@@ -18,13 +17,11 @@ AVAILABLE_LANGUAGES = {
 
 
 class CodeoBrowser:
-
     def __init__(self, browser):
         self.browser = browser
 
     def login(self, username: str, password: str) -> None:
-        """Log in to codeo.app
-        """
+        """Log in to codeo.app"""
         self.browser.open("http://127.0.0.1:3000/usuarios/login")
         form = self.browser.select_form()
         form.set_input({"user[username]": username})
@@ -32,18 +29,21 @@ class CodeoBrowser:
         form.choose_submit("commit")
         self.browser.submit_selected()
         if self.browser.url != "http://127.0.0.1:3000/":
-            rprint(":eyes: [bold]Please check your login credentials[bold] :eyes:")
+            rprint(
+                ":eyes: [bold]Please check your login credentials[bold] :eyes:"
+            )
             sys.exit()
 
-
     def submit_problem(self, problem_url: str, filename: str) -> None:
-        """Submit source code to codeo.app to be verified.
-        """
+        """Submit source code to codeo.app to be verified."""
         self.browser.open(problem_url)
         try:
             form = self.browser.select_form()
         except LinkNotFoundError:
-            rprint(":no_entry_sign: [bold]Please check url problem is correct[bold] :no_entry_sign:")
+            rprint(
+                ":no_entry_sign: [bold]Please check url problem is"
+                "correct[bold] :no_entry_sign:"
+            )
             sys.exit()
         form.set_select({"submission[language]": self.get_language(filename)})
         form.set_textarea(
@@ -52,19 +52,18 @@ class CodeoBrowser:
         form.choose_submit("commit")
         self.browser.submit_selected()
         rprint(
-            f"[bold]Execute the following commmand to show results:[bold] :smiley:\
-            \n :point_right: codeo -r [u blue]{self.browser.url}[/u blue]"
+            "[bold]Execute the following commmand to show results:[bold]"
+            f" :smiley:\n :point_right: codeo -r [u blue]{self.browser.url}"
+            "[/u blue]"
         )
 
     def close(self) -> None:
-        """Close browser session
-        """
+        """Close browser session"""
         self.browser.close()
 
     @staticmethod
     def read_source_code(filename: str) -> str:
-        """Rread source code from file.
-        """
+        """Rread source code from file."""
         if not os.path.isfile(filename):
             raise argparse.ArgumentTypeError(f"No such file: {filename}")
 
@@ -78,6 +77,9 @@ class CodeoBrowser:
         """
         _, extension = os.path.splitext(filename)
         if extension not in AVAILABLE_LANGUAGES:
-            rprint("[bold]Programming language not available yet[bold] :see_no_evil:")
+            rprint(
+                "[bold]Programming language not available yet.[bold] "
+                ":see_no_evil:"
+            )
             sys.exit()
         return AVAILABLE_LANGUAGES.get(extension)

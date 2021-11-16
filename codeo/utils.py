@@ -2,10 +2,10 @@ import os
 import sys
 import time
 
-from bs4 import BeautifulSoup
 import requests
-from rich.console import Console
+from bs4 import BeautifulSoup
 from rich import print as rprint
+from rich.console import Console
 from rich.table import Table
 
 
@@ -17,8 +17,9 @@ def get_enviroment_vars():
     PASSWORD = os.environ.get("PASSWORD")
     if not all((USERNAME, PASSWORD)):
         rprint(
-            "[bold]Make sure to set the following enviroment variables:[bold] :crying_cat_face: \
-            \n [bold blue]* USER_NAME\n * PASSWORD\n"
+            "[bold]Make sure to set the following enviroment variables:[bold]"
+            " :crying_cat_face:\n"
+            "[bold blue] * USER_NAME=...\n * PASSWORD=...\n"
         )
         sys.exit()
     return USERNAME, PASSWORD
@@ -37,8 +38,7 @@ def create_table_header() -> Table:
 
 
 def show_results(url):
-    """Scrape results from codeo.app website and append them to row table.
-    """
+    """Scrape results from codeo.app website and append them to row table."""
     console = Console()
     table = create_table_header()
     page = requests.get(url)
@@ -54,7 +54,7 @@ def show_results(url):
                 case.text.strip(),
                 result.div.text.strip(),
                 time_.text.strip(),
-                memory.text.strip()
+                memory.text.strip(),
             )
     problem = soup.find("h2").a.text
     author, date = soup.find("ul", class_="mb-4").find_all("li")

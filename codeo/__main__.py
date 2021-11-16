@@ -1,7 +1,7 @@
 import mechanicalsoup as ms
 
-from .codeo import CodeoBrowser
 from .cli import get_args
+from .codeo import CodeoBrowser
 from .utils import get_enviroment_vars, show_results
 
 
