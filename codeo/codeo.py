@@ -12,6 +12,7 @@ AVAILABLE_LANGUAGES = {
     ".cpp": "C++",
     ".rb": "Ruby",
     ".go": "Go",
+    ".cs": "C#",
     ".c": "C",
 }
 
