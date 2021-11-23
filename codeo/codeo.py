@@ -29,7 +29,7 @@ class CodeoBrowser:
         form.set_input({"user[password]": password})
         form.choose_submit("commit")
         self.browser.submit_selected()
-        if self.browser.url != "http://127.0.0.1:3000/":
+        if self.browser.url == "http://127.0.0.1:3000/usuarios/login":
             rprint(
                 ":eyes: [bold]Please check your login credentials[bold] :eyes:"
             )
@@ -52,11 +52,7 @@ class CodeoBrowser:
         )
         form.choose_submit("commit")
         self.browser.submit_selected()
-        rprint(
-            "[bold]Execute the following commmand to show results:[bold]"
-            f" :smiley:\n :point_right: codeo -r [u blue]{self.browser.url}"
-            "[/u blue]"
-        )
+        return self.browser.url
 
     def close(self) -> None:
         """Close browser session"""

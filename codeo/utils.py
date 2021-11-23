@@ -46,7 +46,7 @@ def show_results(url):
     tbody = soup.find("tbody")
 
     with console.status("[bold green] Working on test cases..."):
-        time.sleep(1.5)
+        time.sleep(3.5)
         for tr in tbody.find_all("tr"):
             case = tr.th.a
             result, time_, memory = tr.find_all("td")

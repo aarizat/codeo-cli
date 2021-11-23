@@ -6,14 +6,15 @@ def get_args():
         description="Submit code to codeo.app website",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument(
+    required_args = parser.add_argument_group("required arguments")
+    required_args.add_argument(
         "-u",
         "--url",
         action="store",
         help="Url of the problem to submit",
         required=True,
     )
-    parser.add_argument(
+    required_args.add_argument(
         "-f",
         "--file",
         action="store",
