@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "codeo"
-version = "0.1.0"
-description = ""
-authors = ["Andres Ariza <aarizatr@gmail.com>"]
+version = "1.0.0"
+description = "CLI for sending code to www.codeo.app website"
+authors = ["Andres Ariza-Triana <aarizatr@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/aarizat/codeo-cli"
+documentation = "https://github.com/aarizat/codeo-cli"
+classifiers = ["License :: OSI Approved :: MIT License"]
+exclude = ["./examples/*", "./test/*"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -22,7 +27,7 @@ line-length = 79
 include = '\.pyi?$'
 exclude = '''
 /(
-	\.git
+  \.git
 | \.hg
 | \.mypy_cache
 | \.tox
