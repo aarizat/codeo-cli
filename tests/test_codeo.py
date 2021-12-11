@@ -1,10 +1,9 @@
 import os
-import mechanicalsoup as ms
 
+import mechanicalsoup as ms
 import pytest
 
 from codeo.codeo import CodeoBrowser
-
 
 USER_NAME = os.environ.get("USER_NAME")
 PASSWORD = os.environ.get("PASSWORD")
@@ -20,7 +19,7 @@ def codeo_br():
     cb.close()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def source_code(tmpdir_factory):
     file = tmpdir_factory.mktemp("data").join("hi_codeo.py")
     with open(file, "w") as f:
