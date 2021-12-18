@@ -23,13 +23,13 @@ class CodeoBrowser:
 
     def login(self, username: str, password: str) -> None:
         """Log in to codeo.app"""
-        self.browser.open("http://127.0.0.1:3000/usuarios/login")
+        self.browser.open("https://codeo.app/usuarios/login")
         form = self.browser.select_form()
         form.set_input({"user[username]": username})
         form.set_input({"user[password]": password})
         form.choose_submit("commit")
         self.browser.submit_selected()
-        if self.browser.url == "http://127.0.0.1:3000/usuarios/login":
+        if self.browser.url == "https://codeo.app/usuarios/login":
             rprint(
                 ":eyes: [bold]Please check your login credentials[bold] :eyes:"
             )
